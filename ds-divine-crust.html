@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>D's Divine Crust — Home Bakery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #FAF5EE;
+      --warm-white: #FFF9F2;
+      --caramel: #C8813A;
+      --caramel-dark: #9E5E1E;
+      --espresso: #2C1A0E;
+      --cocoa: #5C3D2A;
+      --blush: #F2D9C8;
+      --sage: #A8B89A;
+      --gold: #D4A856;
+      --text: #2C1A0E;
+      --text-muted: #7A5C45;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(250, 245, 238, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(200, 129, 58, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--espresso);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--caramel); font-style: italic; }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--cocoa);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--caramel); }
+
+    .nav-cta {
+      background: var(--caramel);
+      color: white !important;
+      padding: 0.55rem 1.4rem;
+      border-radius: 2rem;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--caramel-dark) !important; color: white !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 5rem;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 3rem 5rem 5rem;
+      position: relative;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: 1.5rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--caramel);
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 5vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      color: var(--espresso);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--caramel);
+    }
+
+    .hero-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--text-muted);
+      max-width: 38ch;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--espresso);
+      color: var(--cream);
+      padding: 0.85rem 2.2rem;
+      border-radius: 3rem;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(44, 26, 14, 0.25); }
+
+    .btn-outline {
+      border: 1.5px solid var(--caramel);
+      color: var(--caramel);
+      padding: 0.85rem 2.2rem;
+      border-radius: 3rem;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { background: var(--caramel); color: white; }
+
+    .hero-badges {
+      display: flex;
+      gap: 2rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(200, 129, 58, 0.2);
+    }
+    .badge-item strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--caramel);
+    }
+    .badge-item span {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* HERO RIGHT — mosaic */
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      background: var(--blush);
+    }
+
+    .hero-mosaic {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      height: 100%;
+      gap: 3px;
+    }
+
+    .mosaic-img {
+      overflow: hidden;
+      position: relative;
+    }
+    .mosaic-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .mosaic-img:hover img { transform: scale(1.06); }
+    .mosaic-img:first-child {
+      grid-row: span 2;
+    }
+
+    /* Decorative circle */
+    .hero-circle {
+      position: absolute;
+      width: 480px; height: 480px;
+      border-radius: 50%;
+      border: 1px solid rgba(200, 129, 58, 0.2);
+      top: 50%; left: 55%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 5;
+    }
+    .hero-circle::after {
+      content: '';
+      position: absolute;
+      inset: 20px;
+      border-radius: 50%;
+      border: 1px solid rgba(200, 129, 58, 0.1);
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-section {
+      background: var(--espresso);
+      padding: 1rem 0;
+      overflow: hidden;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      white-space: nowrap;
+      animation: marquee 25s linear infinite;
+    }
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+    .marquee-dot {
+      display: inline-block;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--caramel);
+      flex-shrink: 0;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 6rem 5rem; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: 1rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 1.5rem; height: 1px;
+      background: var(--caramel);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--espresso);
+      margin-bottom: 1rem;
+    }
+    .section-title em { font-style: italic; color: var(--caramel); }
+
+    .section-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 52ch;
+      line-height: 1.7;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 6rem;
+      align-items: center;
+      background: var(--warm-white);
+    }
+
+    .about-image-wrap {
+      position: relative;
+    }
+    .about-img-main {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+    .about-img-accent {
+      position: absolute;
+      bottom: -2rem;
+      right: -2rem;
+      width: 50%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border: 5px solid var(--warm-white);
+      border-radius: 2px;
+    }
+    .about-badge {
+      position: absolute;
+      top: 2rem;
+      left: -1.5rem;
+      background: var(--caramel);
+      color: white;
+      padding: 1rem 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      line-height: 1.3;
+      text-align: center;
+      border-radius: 2px;
+    }
+
+    .about-content { padding-right: 2rem; }
+    .about-content p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+
+    /* ── MENU ── */
+    .menu { background: var(--cream); }
+
+    .menu-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+    }
+
+    .menu-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+      border-bottom: 1px solid rgba(200, 129, 58, 0.2);
+      padding-bottom: 0;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0.7rem 1.5rem;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: all 0.2s;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      color: var(--caramel);
+      border-bottom-color: var(--caramel);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .menu-card {
+      background: var(--warm-white);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .menu-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(44, 26, 14, 0.12);
+    }
+
+    .card-img-wrap {
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      position: relative;
+    }
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .menu-card:hover .card-img-wrap img { transform: scale(1.08); }
+
+    .card-tag {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      background: var(--caramel);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 2rem;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+    .card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 0.5rem;
+    }
+    .card-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--caramel);
+    }
+    .card-order {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--cocoa);
+      text-decoration: none;
+      border-bottom: 1px solid var(--caramel);
+      padding-bottom: 1px;
+      transition: color 0.2s;
+    }
+    .card-order:hover { color: var(--caramel); }
+
+    /* hidden tab content */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ── SPECIALTY STRIP ── */
+    .specialties {
+      background: var(--espresso);
+      padding: 5rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .specialty-item {
+      padding: 2rem;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+    .specialty-item:last-child { border-right: none; }
+    .spec-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+    .spec-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .spec-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+    }
+
+    /* ── GALLERY ── */
+    .gallery { background: var(--blush); padding: 6rem 5rem; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 2px;
+      position: relative;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.07); }
+
+    .gallery-item:nth-child(1) { grid-column: span 2; aspect-ratio: 16/9; }
+    .gallery-item:nth-child(2) { aspect-ratio: 3/4; }
+    .gallery-item:nth-child(3) { aspect-ratio: 3/4; }
+    .gallery-item:nth-child(4) { aspect-ratio: 1; }
+    .gallery-item:nth-child(5) { aspect-ratio: 1; }
+    .gallery-item:nth-child(6) { grid-column: span 2; aspect-ratio: 16/9; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      background: var(--warm-white);
+      text-align: center;
+    }
+    .testimonials .section-title, .testimonials .section-label { text-align: center; margin-left: auto; margin-right: auto; }
+    .testimonials .section-label { justify-content: center; }
+    .testimonials .section-label::before { display: none; }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+      text-align: left;
+    }
+    .testi-card {
+      background: var(--cream);
+      padding: 2rem;
+      border-radius: 4px;
+      position: relative;
+    }
+    .testi-card::before {
+      content: '"';
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      color: var(--caramel);
+      opacity: 0.2;
+      position: absolute;
+      top: -0.5rem;
+      left: 1.5rem;
+      line-height: 1;
+    }
+    .testi-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .testi-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--espresso);
+    }
+    .testi-stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 0.25rem; }
+
+    /* ── ORDER CTA ── */
+    .order-cta {
+      background: linear-gradient(135deg, var(--caramel) 0%, var(--caramel-dark) 100%);
+      padding: 6rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: center;
+    }
+    .order-cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 800;
+      color: white;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+    .order-cta-title em { font-style: italic; opacity: 0.85; }
+    .order-cta-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.75);
+    }
+    .btn-white {
+      background: white;
+      color: var(--caramel);
+      padding: 1rem 2.5rem;
+      border-radius: 3rem;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-block;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+
+    /* ── CONTACT ── */
+    .contact {
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+    }
+
+    .contact-info h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 1rem;
+    }
+    .contact-info h2 em { font-style: italic; color: var(--caramel); }
+    .contact-info > p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .contact-icon {
+      width: 2.5rem; height: 2.5rem;
+      background: var(--blush);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .contact-detail-text strong {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: 0.2rem;
+    }
+    .contact-detail-text span, .contact-detail-text a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    .contact-detail-text a:hover { color: var(--caramel); }
+
+    .social-row {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .social-btn {
+      width: 2.8rem; height: 2.8rem;
+      border-radius: 50%;
+      background: var(--espresso);
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .social-btn:hover { background: var(--caramel); transform: translateY(-3px); }
+
+    /* Contact Form */
+    .contact-form {
+      background: var(--warm-white);
+      padding: 2.5rem;
+      border-radius: 4px;
+    }
+    .contact-form h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 0.5rem;
+    }
+    .contact-form p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cocoa);
+      margin-bottom: 0.4rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid rgba(200, 129, 58, 0.2);
+      border-radius: 3px;
+      background: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--caramel);
+    }
+    .form-group textarea { min-height: 100px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--espresso);
+      color: var(--cream);
+      padding: 0.9rem;
+      border: none;
+      border-radius: 3px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      margin-top: 0.5rem;
+    }
+    .btn-submit:hover { background: var(--caramel); transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--espresso);
+      color: rgba(255,255,255,0.5);
+      padding: 3rem 5rem;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .footer-brand .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 0.75rem;
+    }
+    .footer-brand .brand-name span { color: var(--gold); font-style: italic; }
+    .footer-brand p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .footer-col h4 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.5rem; }
+    .footer-col a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: white; }
+
+    .footer-bottom {
+      background: rgba(0,0,0,0.2);
+      padding: 1.2rem 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-tag, .hero-title, .hero-desc, .hero-buttons, .hero-badges {
+      animation: fadeUp 0.7s ease forwards;
+    }
+    .hero-title { animation-delay: 0.1s; opacity: 0; }
+    .hero-tag { animation-delay: 0s; opacity: 0; }
+    .hero-desc { animation-delay: 0.2s; opacity: 0; }
+    .hero-buttons { animation-delay: 0.3s; opacity: 0; }
+    .hero-badges { animation-delay: 0.4s; opacity: 0; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      nav { padding: 1.2rem 2rem; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 8rem 2rem 3rem; }
+      .hero-right { height: 50vw; min-height: 300px; }
+      section { padding: 4rem 2rem; }
+      .about { grid-template-columns: 1fr; }
+      .about-image-wrap { display: none; }
+      .contact { grid-template-columns: 1fr; gap: 2rem; }
+      .specialties { grid-template-columns: 1fr 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      footer { grid-template-columns: 1fr 1fr; }
+      .order-cta { grid-template-columns: 1fr; text-align: center; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item:nth-child(1), .gallery-item:nth-child(6) { grid-column: span 2; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      nav { padding: 1rem 1.5rem; }
+      section { padding: 3rem 1.5rem; }
+      .specialties { grid-template-columns: 1fr 1fr; gap: 0; }
+      footer { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+      .footer-bottom { padding: 1rem 1.5rem; flex-direction: column; gap: 0.5rem; }
+      .order-cta { padding: 3rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">D's <span>Divine</span> Crust</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact" class="nav-cta">Order Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home" style="padding:0;">
+  <div class="hero-left">
+    <span class="hero-tag">Home Bakery · Surat</span>
+    <h1 class="hero-title">Baked with<br>Love &amp; <em>Soul</em></h1>
+    <p class="hero-desc">
+      Every cake, every bite — crafted fresh from our home kitchen with premium ingredients and a whole lot of heart.
+    </p>
+    <div class="hero-buttons">
+      <a href="#menu" class="btn-primary">Explore Menu</a>
+      <a href="#contact" class="btn-outline">Place an Order</a>
+    </div>
+    <div class="hero-badges">
+      <div class="badge-item">
+        <strong>100%</strong>
+        <span>Home-made</span>
+      </div>
+      <div class="badge-item">
+        <strong>Fresh</strong>
+        <span>Made to Order</span>
+      </div>
+      <div class="badge-item">
+        <strong>Custom</strong>
+        <span>Designs Available</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-mosaic">
+      <div class="mosaic-img">
+        <img src="WhatsApp_Image_2026-05-30_at_14_49_33__1_.jpeg" alt="Strawberry Cake">
+      </div>
+      <div class="mosaic-img">
+        <img src="WhatsApp_Image_2026-05-30_at_14_49_30.jpeg" alt="Caramel Birthday Cake">
+      </div>
+      <div class="mosaic-img">
+        <img src="WhatsApp_Image_2026-05-30_at_14_49_38.jpeg" alt="Fruit Cake">
+      </div>
+    </div>
+    <div class="hero-circle"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Custom Cakes <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Birthday Specials <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Fresh Muffins <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Mother's Day Cakes <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Fruit Cakes <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Checkerboard Cakes <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Jelly Desserts <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Made to Order <span class="marquee-dot"></span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item">Custom Cakes <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Birthday Specials <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Fresh Muffins <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Mother's Day Cakes <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Fruit Cakes <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Checkerboard Cakes <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Jelly Desserts <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Made to Order <span class="marquee-dot"></span></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-image-wrap">
+    <img class="about-img-main" src="WhatsApp_Image_2026-05-30_at_14_49_34.jpeg" alt="About D's Divine Crust">
+    <img class="about-img-accent" src="WhatsApp_Image_2026-05-30_at_14_49_35__1_.jpeg" alt="Muffins fresh from oven">
+    <div class="about-badge">Baked<br>Fresh<br>Daily ✦</div>
+  </div>
+  <div class="about-content">
+    <span class="section-label">Our Story</span>
+    <h2 class="section-title">A Home Kitchen<br>Filled with <em>Warmth</em></h2>
+    <p>
+      D's Divine Crust was born out of a simple love for baking and a desire to share that joy with everyone around us. What started as weekend experiments and family celebrations has grown into a beloved home bakery right here in Ahmedabad.
+    </p>
+    <p>
+      Every cake we bake is made fresh to order — no preservatives, no shortcuts. We use only quality ingredients and pour genuine care into every layer, swirl, and garnish. Whether it's a birthday, anniversary, or just a sweet Tuesday, we believe every occasion deserves something truly special.
+    </p>
+    <p>
+      From classic marble cakes and checkerboard creations to custom celebration cakes and fruit-studded muffins — our menu is baked with love and delivered with a smile.
+    </p>
+    <a href="#menu" class="btn-primary" style="display:inline-block; margin-top:1rem;">See Our Menu</a>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="menu-header">
+    <div>
+      <span class="section-label">What We Bake</span>
+      <h2 class="section-title">Our <em>Menu</em></h2>
+    </div>
+  </div>
+
+  <div class="menu-tabs">
+    <button class="tab-btn active" onclick="switchTab('cakes', this)">Cakes</button>
+    <button class="tab-btn" onclick="switchTab('muffins', this)">Muffins &amp; Bites</button>
+    <button class="tab-btn" onclick="switchTab('specials', this)">Special Orders</button>
+  </div>
+
+  <!-- CAKES TAB -->
+  <div class="tab-content active" id="tab-cakes">
+    <div class="menu-grid">
+
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img src="WhatsApp_Image_2026-05-30_at_14_49_34.jpeg" alt="Marble Swirl Cake">
+          <span class="card-tag">Signature</span>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Marble Swirl Cake</div>
+          <p class="card-desc">A gorgeous two-toned swirl of vanilla and chocolate sponge, perfectly baked to a golden finish. Moist, fluffy, and simply irresistible.</p>
+          <div class="card-footer">
+            <span class="card-price">₹ 450+</span>
+            <a href="#contact" class="card-order">Order →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img src="WhatsApp_Image_2026-05-30_at_14_49_30.jpeg" alt="Caramel Drip Birthday Cake">
+          <span class="card-tag">Bestseller</span>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Caramel Drip Cake</div>
+          <p class="card-desc">Rich caramel glaze over a luscious mocha cream cake, ringed with chocolate whipped rosettes. Perfect for any celebration.</p>
+          <div class="card-footer">
+            <span class="card-price">₹ 750+</span>
+            <a href="#contact" class="card-order">Order →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img src="WhatsApp_Image_2026-05-30_at_14_49_33__1_.jpeg" alt="Strawberry Cream Cake">
+          <span class="card-tag">Fan Favourite</span>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Strawberry Cream Cake</div>
+          <p class="card-desc">Pillowy white cream frosting crowned with a vibrant strawberry compote topping. Light, fresh, and beautifully elegant.</p>
+          <div class="card-footer">
+            <span class="card-price">₹ 650+</span>
+            <a href="#contact" class="card-order">Order →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img src="WhatsApp_Image_2026-05-30_at_14_49_33.jpeg" alt="Mother's Day Cake">
+          <span class="card-tag">Custom</span>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Celebration Drip Cake</div>
+          <p class="card-desc">White cream with soft pink floral piping, chocolate drizzle accents and personalised message writing. A heartfelt gift.</p>
+          <div class="card-footer">
+            <span class="card-price">₹ 600+</span>
+            <a href="#contact" class="card-order">Order →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img src="WhatsApp_Image_2026-05-30_at_14_49_37.jpeg" alt="Checkerboard Cake">
+          <span class="card-tag">Showstopper</span>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Checkerboard Cream Cake</div>
+          <p class="card-desc">A stunning interior checkerboard pattern of vanilla and chocolate sponge, finished with pale yellow whipped cream topping.</p>
+          <div class="card-footer">
+            <span class="card-price">₹ 800+</span>
+            <a href="#contact" class="card-order">Order →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img src="WhatsApp_Image_2026-05-30_at_14_49_38.jpeg" alt="Tropical Fruit Cake">
+          <span class="card-tag">Seasonal</span>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Tropical Fruit Cake</div>
+          <p class="card-desc">Fresh kiwi, pineapple, and grapes arranged over light whipped cream, with toasted coconut sides. A refreshing, summer treat.</p>
+          <div class="card-footer">
+            <span class="card-price">₹ 700+</span>
+            <a href="#contact" class="card-order">Order →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img src="WhatsApp_Image_2026-05-30_at_14_49_35.jpeg" alt="Birthday Cake">
+          <span class="card-tag">Birthday</span>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Sunshine Birthday Cake</div>
+          <p class="card-desc">Vibrant yellow frosted celebration cake with white whipped cream swirls and a glittery "Happy Birthday" topper. Pure joy in a cake.</p>
+          <div class="card-footer">
+            <span class="card-price">₹ 600+</span>
+            <a href="#contact" class="card-order">Order →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img src="WhatsApp_Image_2026-05-30_at_14_49_35__1_.jpeg" alt="Chocolate Chip Cake">
+          <span class="card-tag">Chocolate</span>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Choco Chip Dream Cake</div>
+          <p class="card-desc">Velvety chocolate mousse frosting studded with dozens of mini chocolate chips. A chocolate lover's dream come true.</p>
+          <div class="card-footer">
+            <span class="card-price">₹ 700+</span>
+            <a href="#contact" class="card-order">Order →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MUFFINS TAB -->
+  <div class="tab-content" id="tab-muffins">
+    <div class="menu-grid">
+
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img src="WhatsApp_Image_2026-05-30_at_14_49_37__1_.jpeg" alt="Tutti Frutti Muffins">
+          <span class="card-tag">Freshly Baked</span>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Tutti Frutti Muffins</div>
+          <p class="card-desc">Soft, fluffy vanilla muffins dotted with colourful tutti frutti bits. A nostalgic, happy treat perfect for all ages.</p>
+          <div class="card-footer">
+            <span class="card-price">₹ 40 each</span>
+            <a href="#contact" class="card-order">Order →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img src="WhatsApp_Image_2026-05-30_at_14_49_36.jpeg" alt="Jelly Fruit Pudding">
+          <span class="card-tag">Dessert</span>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Berry Fruit Jelly Mould</div>
+          <p class="card-desc">A stunning dome of translucent berry jelly embedded with fresh fruits like pomegranate and apple. Light, refreshing and show-stopping.</p>
+          <div class="card-footer">
+            <span class="card-price">₹ 350+</span>
+            <a href="#contact" class="card-order">Order →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <img src="WhatsApp_Image_2026-05-30_at_14_49_32.jpeg" alt="Assorted Sponge Cakes">
+          <span class="card-tag">Mix Box</span>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Assorted Sponge Bakes</div>
+          <p class="card-desc">A trio of freshly baked sponges — vanilla tutti frutti and rich chocolate — available as a mixed box for gifting or sampling.</p>
+          <div class="card-footer">
+            <span class="card-price">₹ 500+</span>
+            <a href="#contact" class="card-order">Order →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SPECIALS TAB -->
+  <div class="tab-content" id="tab-specials">
+    <div class="menu-grid">
+      <div class="menu-card" style="border: 2px dashed rgba(200,129,58,0.4);">
+        <div class="card-body" style="padding:2.5rem;">
+          <div style="font-size:2.5rem; margin-bottom:1rem;">🎂</div>
+          <div class="card-name">Custom Design Cakes</div>
+          <p class="card-desc">Have something specific in mind? We take fully custom orders — from theme cakes to wedding tiers, personalised messages to photo cakes. Share your vision and we'll bring it to life.</p>
+          <a href="#contact" class="btn-primary" style="display:inline-block; margin-top:1.2rem; font-size:0.82rem; padding:0.7rem 1.8rem;">Inquire Now</a>
+        </div>
+      </div>
+      <div class="menu-card" style="border: 2px dashed rgba(200,129,58,0.4);">
+        <div class="card-body" style="padding:2.5rem;">
+          <div style="font-size:2.5rem; margin-bottom:1rem;">🎁</div>
+          <div class="card-name">Gifting Hampers</div>
+          <p class="card-desc">Curated hampers combining mini cakes, muffins and sweet treats — beautifully packaged for birthdays, festivities, or corporate gifting. Minimum 24hr advance notice required.</p>
+          <a href="#contact" class="btn-primary" style="display:inline-block; margin-top:1.2rem; font-size:0.82rem; padding:0.7rem 1.8rem;">Get in Touch</a>
+        </div>
+      </div>
+      <div class="menu-card" style="border: 2px dashed rgba(200,129,58,0.4);">
+        <div class="card-body" style="padding:2.5rem;">
+          <div style="font-size:2.5rem; margin-bottom:1rem;">💝</div>
+          <div class="card-name">Occasion &amp; Event Orders</div>
+          <p class="card-desc">Planning a party, pooja, or celebration? We offer bulk baking for events — multiple cakes, large muffin trays, and dessert tables. Let's plan together!</p>
+          <a href="#contact" class="btn-primary" style="display:inline-block; margin-top:1.2rem; font-size:0.82rem; padding:0.7rem 1.8rem;">Plan With Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALTIES STRIP -->
+<div class="specialties">
+  <div class="specialty-item">
+    <div class="spec-icon">🌿</div>
+    <div class="spec-title">Fresh Ingredients</div>
+    <p class="spec-desc">No preservatives. Every item made fresh with quality ingredients sourced locally.</p>
+  </div>
+  <div class="specialty-item">
+    <div class="spec-icon">🎨</div>
+    <div class="spec-title">Custom Designs</div>
+    <p class="spec-desc">Tell us your vision and we'll craft a cake that's uniquely yours — any theme, any message.</p>
+  </div>
+  <div class="specialty-item">
+    <div class="spec-icon">🏠</div>
+    <div class="spec-title">Home-Baked Goodness</div>
+    <p class="spec-desc">Baked in our kitchen with the warmth and care of a home — every single time.</p>
+  </div>
+  <div class="specialty-item">
+    <div class="spec-icon">📦</div>
+    <div class="spec-title">Delivery Available</div>
+    <p class="spec-desc">Convenient delivery within Ahmedabad. Self-pickup also welcome — fresh and on time.</p>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <span class="section-label">From Our Kitchen</span>
+  <h2 class="section-title">A Peek into Our <em>Creations</em></h2>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <img src="WhatsApp_Image_2026-05-30_at_14_49_38.jpeg" alt="Fruit Cake">
+    </div>
+    <div class="gallery-item">
+      <img src="WhatsApp_Image_2026-05-30_at_14_49_33__1_.jpeg" alt="Strawberry Cake">
+    </div>
+    <div class="gallery-item">
+      <img src="WhatsApp_Image_2026-05-30_at_14_49_30.jpeg" alt="Caramel Cake">
+    </div>
+    <div class="gallery-item">
+      <img src="WhatsApp_Image_2026-05-30_at_14_49_36.jpeg" alt="Jelly Dessert">
+    </div>
+    <div class="gallery-item">
+      <img src="WhatsApp_Image_2026-05-30_at_14_49_35__1_.jpeg" alt="Chocolate Cake">
+    </div>
+    <div class="gallery-item">
+      <img src="WhatsApp_Image_2026-05-30_at_14_49_37.jpeg" alt="Checkerboard Cake">
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <span class="section-label">What People Say</span>
+  <h2 class="section-title">Love from Our <em>Customers</em></h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Ordered a custom birthday cake and it was absolutely stunning. The taste was even better than it looked — moist, flavourful, and not too sweet. Everyone at the party couldn't stop asking where it came from!</p>
+      <div class="testi-name">Priya M., Ahmedabad</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">The muffins were a huge hit at our office gathering. Perfectly baked, fluffy inside and beautifully presented. Will definitely order again for our next event. Highly recommended!</p>
+      <div class="testi-name">Rahul S., Satellite</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Got a Mother's Day cake with a custom message and flowers on top — it brought my mom to tears (the good kind!). The quality and presentation from a home bakery is truly remarkable. Thank you!</p>
+      <div class="testi-name">Ananya K., Bopal</div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER CTA -->
+<div class="order-cta">
+  <div>
+    <h2 class="order-cta-title">Ready to Order Something<br><em>Delicious?</em></h2>
+    <p class="order-cta-sub">Reach out via WhatsApp or the form below — we'd love to bake for you!</p>
+  </div>
+  <a href="https://wa.me/917573973151?text=Hi!%20I%27d%20like%20to%20place%20an%20order%20from%20D%27s%20Divine%20Crust." class="btn-white" target="_blank">Order on WhatsApp ✦</a>
+</div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-info">
+    <span class="section-label">Get in Touch</span>
+    <h2>Let's Bake <em>Something<br>Special</em> Together</h2>
+    <p>We're a home bakery and love hearing from you. Reach out to place an order, discuss a custom cake, or simply ask us anything. We reply within a few hours!</p>
+
+    <div class="contact-detail">
+      <div class="contact-icon">📱</div>
+      <div class="contact-detail-text">
+        <strong>WhatsApp / Call</strong>
+        <a href="tel:+917573973151">+91 75739 73151</a>
+      </div>
+    </div>
+
+    <div class="contact-detail">
+      <div class="contact-icon">📧</div>
+      <div class="contact-detail-text">
+        <strong>Email</strong>
+        <a href="mailto:hello@dsdivinecrust.com">hello@dsdivinecrust.com</a>
+      </div>
+    </div>
+
+    <div class="contact-detail">
+      <div class="contact-icon">📍</div>
+      <div class="contact-detail-text">
+        <strong>Location</strong>
+        <span>Surat, Gujarat, India<br>Home delivery available within city</span>
+      </div>
+    </div>
+
+    <div class="contact-detail">
+      <div class="contact-icon">🕐</div>
+      <div class="contact-detail-text">
+        <strong>Order Lead Time</strong>
+        <span>Minimum 24 hrs for standard orders<br>48–72 hrs for custom cakes</span>
+      </div>
+    </div>
+
+    <div class="social-row">
+      <a href="https://www.instagram.com/ds_divinecrust?igsh=NnV0ems0bHNqNzQz&utm_source=qr"
+     class="social-btn"
+     title="Instagram"
+     target="_blank">
+     📸
+  </a>
+      <a href="https://wa.me/917573973151" class="social-btn" title="WhatsApp" target="_blank">💬</a>
+      <a href="#" class="social-btn" title="Facebook">👥</a>
+    </div>
+  </div>
+
+  <div class="contact-form">
+    <h3>Place an Order</h3>
+    <p>Fill in the details below and we'll get back to you shortly.</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="Priya Sharma">
+      </div>
+      <div class="form-group">
+        <label>Phone / WhatsApp</label>
+        <input type="tel" placeholder="+91 98765 43210">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>What are you looking for?</label>
+      <select>
+        <option>Birthday Cake</option>
+        <option>Custom Design Cake</option>
+        <option>Muffins / Cupcakes</option>
+        <option>Fruit Cake</option>
+        <option>Celebration Cake</option>
+        <option>Gifting Hamper</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Occasion Date</label>
+        <input type="date">
+      </div>
+      <div class="form-group">
+        <label>Serves (approx.)</label>
+        <select>
+          <option>4–6 people</option>
+          <option>8–10 people</option>
+          <option>12–15 people</option>
+          <option>20+ people</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Tell us more</label>
+      <textarea placeholder="Flavour preference, theme, message on cake, dietary requirements..."></textarea>
+    </div>
+    <button class="btn-submit" onclick="alert('Thank you! We\'ll reach out to you on WhatsApp shortly. 🎂')">Send Enquiry</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="brand-name">D's <span>Divine</span> Crust</div>
+    <p>A home bakery in Surat, crafting fresh, made-to-order cakes and bakes with love since our very first batch.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Menu</h4>
+    <ul>
+      <li><a href="#menu">Signature Cakes</a></li>
+      <li><a href="#menu">Birthday Cakes</a></li>
+      <li><a href="#menu">Fruit Cakes</a></li>
+      <li><a href="#menu">Muffins</a></li>
+      <li><a href="#menu">Custom Orders</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Information</h4>
+    <ul>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#contact">Order Now</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Contact</h4>
+    <ul>
+      <li><a href="tel:+917573973151">+91 75739 73151</a></li>
+      <li><a href="mailto:hello@dsdivinecrust.com">hello@dsdivinecrust.com</a></li>
+      <li><a href="https://www.instagram.com/ds_divinecrust?igsh=NnV0ems0bHNqNzQz&utm_source=qr"target="_blank">Instagram </a></li>
+      <li><a href="https://wa.me/917573973151"target="_blank">WhatsApp</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2026 D's Divine Crust · All Rights Reserved · Surat, India</span>
+  <span>Made with 🧁 and love</span>
+</div>
+
+<script>
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
